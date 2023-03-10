@@ -5,22 +5,22 @@ function Main(props) {
   // обработчики
 
   function handleEditAvatarClick() {
-    const popupEditAvatar = document.querySelector('#popup-avatar-edit');
+    const popupEditAvatar = document.querySelector('.popup_type_avatar-edit');
     popupEditAvatar.classList.add('popup_opened');
   }
 
   function handleEditProfileClick() {
-    const popupEditProfile = document.querySelector('#popup-edit');
+    const popupEditProfile = document.querySelector('.popup_type_profile-edit');
     popupEditProfile.classList.add('popup_opened');
   }
 
   function handleAddPlaceClick() {
-    const popupAddCard = document.querySelector("#popup-add");
+    const popupAddCard = document.querySelector(".popup_type_card-add");
     popupAddCard.classList.add('popup_opened');
   }
 
 
-  return(
+  return (
     <main className="main">
       <section className="profile">
         <button
