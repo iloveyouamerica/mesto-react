@@ -2,6 +2,7 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
         <PopupWithForm title="Вы уверены?" name="confirm">
           <button type="submit" className="form__submit">Да</button>
         </PopupWithForm>
+        <ImagePopup />
       </div>
       {/* <!-- popup редактирование profile -->
       {<div className="popup" id="popup-edit">
@@ -105,7 +107,7 @@ function App() {
         </div>
       </div>} */}
       {/* <!-- popup просмотра фотографий --> */}
-      <div className="popup popup_opacity_dark" id="popup-image-view">
+      {/* <div className="popup popup_opacity_dark" id="popup-image-view">
         <div className="popup__container">
           <button type="button" className="popup__close-btn button" id="close-popup-image-view"></button>
           <figure className="view-image">
@@ -113,7 +115,7 @@ function App() {
             <figcaption className="view-image__title"></figcaption>
           </figure>
         </div>
-      </div>
+      </div> */}
       {/* <!-- template cards --> */}
       <template id="template-card">
         <li className="elements__list-item">
