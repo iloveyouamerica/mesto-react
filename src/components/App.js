@@ -27,13 +27,24 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  // обработчик для закрытия попапов
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="App">
       <div className="wrapper">
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+        <Main 
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onClose={closeAllPopups} />
         <Footer />
-        <PopupWithForm title="Редактировать профиль" name="profile-edit" isOpen={isEditProfilePopupOpen}>
+        <PopupWithForm title="Редактировать профиль" name="profile-edit" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
           <label>
             <input type="text" name="username" className="form__input" id="input-name" placeholder="Имя" minLength="2" maxLength="40" required />
             <span className="form__error-message input-name-error"></span>
@@ -44,7 +55,7 @@ function App() {
           </label>
           <button type="submit" className="form__submit">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm title="Новое место" name="card-add" isOpen={isAddPlacePopupOpen}>
+        <PopupWithForm title="Новое место" name="card-add" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
           <label>
             <input type="text" name="name" className="form__input" id="input-place-name" placeholder="Название" minLength="2" maxLength="30" required />
             <span className="form__error-message input-place-name-error"></span>
@@ -55,7 +66,7 @@ function App() {
           </label>
           <button type="submit" className="form__submit">Создать</button>
         </PopupWithForm>
-        <PopupWithForm title="Обновить аватар" name="avatar-edit" isOpen={isEditAvatarPopupOpen}>
+        <PopupWithForm title="Обновить аватар" name="avatar-edit" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
           <label>
             <input type="url" name="link" className="form__input" id="input-avatar-link" placeholder="Ссылка на аватар" required />
             <span className="form__error-message input-avatar-link-error"></span>
