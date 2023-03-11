@@ -47,7 +47,12 @@ function App() {
           onCardClick={setSelectedCard}
           onClose={closeAllPopups} />
         <Footer />
-        <PopupWithForm title="Редактировать профиль" name="profile-edit" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          title="Редактировать профиль"
+          name="profile-edit"
+          buttonText="Сохранить"
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}>
           <label>
             <input type="text" name="username" className="form__input" id="input-name" placeholder="Имя" minLength="2" maxLength="40" required />
             <span className="form__error-message input-name-error"></span>
@@ -56,9 +61,13 @@ function App() {
             <input type="text" name="userinfo" className="form__input" id="input-about" placeholder="О себе" minLength="2" maxLength="200" required />
             <span className="form__error-message input-about-error"></span>
           </label>
-          <button type="submit" className="form__submit">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm title="Новое место" name="card-add" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          title="Новое место"
+          name="card-add"
+          buttonText="Создать"
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}>
           <label>
             <input type="text" name="name" className="form__input" id="input-place-name" placeholder="Название" minLength="2" maxLength="30" required />
             <span className="form__error-message input-place-name-error"></span>
@@ -67,18 +76,19 @@ function App() {
             <input type="url" name="link" className="form__input" id="input-place-link" placeholder="Ссылка на картинку" required />
             <span className="form__error-message input-place-link-error"></span>
           </label>
-          <button type="submit" className="form__submit">Создать</button>
         </PopupWithForm>
-        <PopupWithForm title="Обновить аватар" name="avatar-edit" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm
+          title="Обновить аватар"
+          name="avatar-edit"
+          buttonText="Сохранить"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}>
           <label>
             <input type="url" name="link" className="form__input" id="input-avatar-link" placeholder="Ссылка на аватар" required />
             <span className="form__error-message input-avatar-link-error"></span>
           </label>
-          <button type="submit" className="form__submit">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm title="Вы уверены?" name="confirm">
-          <button type="submit" className="form__submit">Да</button>
-        </PopupWithForm>
+        <PopupWithForm title="Вы уверены?" name="confirm" buttonText="Да"></PopupWithForm>
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </div>
