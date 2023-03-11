@@ -12,6 +12,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   // обработчики кнопок для открытия попапов
 
@@ -32,6 +33,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
 
   return (
@@ -42,6 +44,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={setSelectedCard}
           onClose={closeAllPopups} />
         <Footer />
         <PopupWithForm title="Редактировать профиль" name="profile-edit" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
@@ -76,25 +79,8 @@ function App() {
         <PopupWithForm title="Вы уверены?" name="confirm">
           <button type="submit" className="form__submit">Да</button>
         </PopupWithForm>
-        <ImagePopup />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
-      
-      {/* <!-- template cards --> */}
-      <template id="template-card">
-        <li className="elements__list-item">
-          <article className="elements__card card">
-            <button type="button" className="card__delete button" aria-label="Удалить карточку"></button>
-            <img src="#" alt="" className="card__image" />
-            <div className="card__description">
-              <h2 className="card__title"></h2>
-              <div className="card__like-container">
-                <button type="button" className="card__like" aria-label="Поставить лайк"></button>
-                <p className="card__like-counter"></p>
-              </div>
-            </div>
-          </article>
-        </li>
-      </template>
     </div>
   );
 }
