@@ -1,25 +1,41 @@
 import React, { useEffect } from "react";
 import api from '../utils/Api';
+import Card from "./Card";
 
 // компонент Main
 function Main(props) {
 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setuserDescription] = React.useState('');
-  const [userAvatar, setuserAvatar] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   useEffect(() => {
-    api.getUserInfo()
+    api.getUserInfo() // запрос на получение информации о пользователе
       .then((data) => {
         //console.log(data);
         setUserName(data.name);
         setuserDescription(data.about);
-        setuserAvatar(data.avatar);
+        setUserAvatar(data.avatar);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+
+      api.getCards() // запрос на получение карточек
+        .then((dataCards) => {
+          //console.log(dataCards);
+          setCards(dataCards.map((item) => ({
+            cardId: item._id,
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+          })));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
 
   return (
     <main className="main">
@@ -50,7 +66,11 @@ function Main(props) {
           onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
-        <ul className="elements__list"></ul>
+        <ul className="elements__list">
+        {cards.map((card) => (
+          <Card key={card.cardId} name={card.name} link={card.link} likes={card.likes} />
+        ))}
+        </ul>
       </section>
     </main>
   );
