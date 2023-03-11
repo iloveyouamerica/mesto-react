@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import api from '../utils/Api';
 import Card from "./Card";
 
 // компонент Main
 function Main(props) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setuserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setuserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     api.getUserInfo() // запрос на получение информации о пользователе
