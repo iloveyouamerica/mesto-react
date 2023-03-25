@@ -5,7 +5,7 @@ import Card from "./Card";
 // компонент Main
 function Main(props) {
 
-  // подписываемся на контекст CurrentUserContext
+  // подписываемся на контекст CurrentUserContext (данные о пользователе)
   const currentUser = React.useContext(CurrentUserContext);
   //console.log(currentUser);
 

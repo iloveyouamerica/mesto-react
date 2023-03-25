@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contextst/currentUserContext.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
 
@@ -103,6 +104,20 @@ function App() {
       });
   }
 
+  // обработчик обновления данных о пользователе
+  function handleUpdateUser(newUserData) { // из EditProfilePopup были переданы новые данные пользователя
+    api.editUserProfile(newUserData)
+      .then((res) => { // res - это ответ сервера, объект обновлённых данных пользователя
+        // установим в переменную стейта новые данные о пользователе
+        setCurrentUser(res);
+
+        // закроем попап с формой редактирования
+        closeAllPopups();
+
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -118,7 +133,7 @@ function App() {
             onCardDelete={handleCardDelete}
             onClose={closeAllPopups} />
           <Footer />
-          <PopupWithForm
+          {/* <PopupWithForm
             title="Редактировать профиль"
             name="profile-edit"
             buttonText="Сохранить"
@@ -132,7 +147,8 @@ function App() {
               <input type="text" name="userinfo" className="form__input" id="input-about" placeholder="О себе" minLength="2" maxLength="200" required />
               <span className="form__error-message input-about-error"></span>
             </label>
-          </PopupWithForm>
+          </PopupWithForm> */}
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <PopupWithForm
             title="Новое место"
             name="card-add"
