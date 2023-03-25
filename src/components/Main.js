@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { CurrentUserContext } from "../contextst/currentUserContext";
 import api from '../utils/Api';
 import Card from "./Card";
 
 // компонент Main
 function Main(props) {
 
-  const [userName, setUserName] = useState('');
+  /*const [userName, setUserName] = useState('');
   const [userDescription, setuserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
-  const [cards, setCards] = useState([]);
+  const [userAvatar, setUserAvatar] = useState('');*/
+  //const [cards, setCards] = useState([]);
 
-  useEffect(() => {
-    api.getUserInfo() // запрос на получение информации о пользователе
-      .then((data) => {
-        //console.log(data);
-        setUserName(data.name);
-        setuserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+  /* useEffect(() => {
       api.getCards() // запрос на получение карточек
         .then((dataCards) => {
           //console.log(dataCards);
@@ -30,12 +20,17 @@ function Main(props) {
             name: item.name,
             link: item.link,
             likes: item.likes,
+            owner: item.owner,
           })));
         })
         .catch((err) => {
           console.log(err);
         });
-  }, []);
+  }, []); */
+
+  // подписываемся на контекст CurrentUserContext
+  const currentUser = React.useContext(CurrentUserContext);
+  //console.log(currentUser);
 
   return (
     <main className="main">
@@ -46,17 +41,17 @@ function Main(props) {
           aria-label="Редактировать аватар"
           id="avatar-edit-btn"
           onClick={props.onEditAvatar}>
-          <img src={userAvatar} alt="Аватар пользователя" className="profile__image" />
+          <img src={currentUser.avatar} alt="Аватар пользователя" className="profile__image" />
         </button>
         <div className="profile__text-wrapper">
-          <h1 className="profile__name">{userName}{/* <!--Жак-Ив Кусто--> */}</h1>
+          <h1 className="profile__name">{currentUser.name}{/* <!--Жак-Ив Кусто--> */}</h1>
           <button
             type="button"
             className="profile__button-edit button"
             aria-label="Редактировать профиль"
             id="edit-btn"
             onClick={props.onEditProfile}></button>
-          <p className="profile__about">{userDescription}{/* <!--Исследователь океана--> */}</p>
+          <p className="profile__about">{currentUser.about}{/* <!--Исследователь океана--> */}</p>
         </div>
         <button 
           type="button"
@@ -67,8 +62,17 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          {cards.map((card) => (
-            <Card key={card.cardId} name={card.name} link={card.link} likes={card.likes} onCardClick={props.onCardClick} />
+          {props.cards.map((card) => ( // props.cards - это проброшенный пропс всех первичных карточек от api
+            <Card 
+              key={card._id}
+              _id={card._id}
+              owner={card.owner}
+              name={card.name}
+              link={card.link}
+              likes={card.likes}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+            />
           ))}
         </ul>
       </section>

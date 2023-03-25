@@ -102,6 +102,20 @@ export class Api {
       .then(this._checkResponse);
   }
 
+  // метод для добавление и удаления лайка карточки (2 в 1), путь: https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+  changeLikeCardStatus(cardId, isLiked) {
+    /* const x = isLiked ? 'DELETE' : 'PUT';
+    console.log(x); */
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: isLiked ? 'DELETE' : 'PUT',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(this._checkResponse)
+  }
+
   // метод для редактирования аватара пользователя PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar 
   changeAvatar(avatarLink) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
