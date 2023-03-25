@@ -91,6 +91,18 @@ function App() {
       });
   }
 
+  // обработчик удаления карточки
+  function handleCardDelete(card) {
+    // отправим запрос в api на удаление карточки и получим ответ сервера - обновлённый список карточек
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards(cards.filter((c) => c._id != card._id)); // обновляем стейт cards, удаляя из нового массива нужную карточку
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -103,6 +115,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             onClose={closeAllPopups} />
           <Footer />
           <PopupWithForm

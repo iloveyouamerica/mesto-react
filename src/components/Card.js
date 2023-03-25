@@ -16,6 +16,11 @@ function Card(card) {
     card.onCardLike(card);
   }
 
+  // обработчик удаления карточки
+  function handleDeleteClick() {
+    card.onCardDelete(card);
+  }
+
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
   //console.log(currentUser);
@@ -33,7 +38,11 @@ function Card(card) {
   return (
     <li className="elements__list-item">
       <article className="elements__card card">
-        {isOwn && <button type="button" className="card__delete button" aria-label="Удалить карточку"></button>}
+        {isOwn && <button 
+          type="button"
+          className="card__delete button"
+          aria-label="Удалить карточку"
+          onClick={handleDeleteClick}></button>}
         <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
         <div className="card__description">
           <h2 className="card__title">{card.name}</h2>

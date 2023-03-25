@@ -1,32 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { CurrentUserContext } from "../contextst/currentUserContext";
-import api from '../utils/Api';
 import Card from "./Card";
 
 // компонент Main
 function Main(props) {
-
-  /*const [userName, setUserName] = useState('');
-  const [userDescription, setuserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');*/
-  //const [cards, setCards] = useState([]);
-
-  /* useEffect(() => {
-      api.getCards() // запрос на получение карточек
-        .then((dataCards) => {
-          //console.log(dataCards);
-          setCards(dataCards.map((item) => ({
-            cardId: item._id,
-            name: item.name,
-            link: item.link,
-            likes: item.likes,
-            owner: item.owner,
-          })));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }, []); */
 
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
@@ -72,6 +49,7 @@ function Main(props) {
               likes={card.likes}
               onCardClick={props.onCardClick}
               onCardLike={props.onCardLike}
+              onCardDelete={props.onCardDelete}
             />
           ))}
         </ul>
