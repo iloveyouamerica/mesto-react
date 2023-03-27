@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contextst/currentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 function App() {
 
@@ -57,11 +58,13 @@ function App() {
   // обработчики кнопок для открытия попапов
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true); // меняем состояние (добавляем класс открытия попап)
+    //console.log(isEditAvatarPopupOpen);
   }
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+    //console.log(isEditProfilePopupOpen);
   }
 
   function handleAddPlaceClick() {
@@ -118,6 +121,23 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  // обработчик обновления аватара пользователя
+  function handleUpdateAvatar(userAvatar) { // из EditAvatarPopup
+    //console.log(userAvatar);
+
+    api.changeAvatar(userAvatar.avatar)
+      .then((res) => { // res - это объект пользователя с данными, пришедший от сервера после обновлений
+        // console.log(res);
+
+        // установим в переменную стейта новые данные о пользователе
+        setCurrentUser(res);
+
+        // закроем попап с формой
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -164,7 +184,7 @@ function App() {
               <span className="form__error-message input-place-link-error"></span>
             </label>
           </PopupWithForm>
-          <PopupWithForm
+          {/* <PopupWithForm
             title="Обновить аватар"
             name="avatar-edit"
             buttonText="Сохранить"
@@ -174,7 +194,8 @@ function App() {
               <input type="url" name="link" className="form__input" id="input-avatar-link" placeholder="Ссылка на аватар" required />
               <span className="form__error-message input-avatar-link-error"></span>
             </label>
-          </PopupWithForm>
+          </PopupWithForm> */}
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <PopupWithForm title="Вы уверены?" name="confirm" buttonText="Да"></PopupWithForm>
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
