@@ -8,6 +8,7 @@ import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contextst/currentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 
 function App() {
 
@@ -138,6 +139,21 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  // обработчик для добавления новых карточек
+  function handleAddPlaceSubmit(newCardData) {
+    // console.log(newCardData);
+
+    api.addNewCard(newCardData)
+      .then((res) => { // res - это массив объектов всех карточек, который вернул сервер после обновления
+        // обновите стейт cards с помощью расширенной копии текущего массива
+        setCards([res, ...cards]);
+      })
+      .catch((err) => console.log(err));
+
+    // закроем все попапы
+    closeAllPopups();
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -169,7 +185,7 @@ function App() {
             </label>
           </PopupWithForm> */}
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <PopupWithForm
+          {/* <PopupWithForm
             title="Новое место"
             name="card-add"
             buttonText="Создать"
@@ -183,7 +199,8 @@ function App() {
               <input type="url" name="link" className="form__input" id="input-place-link" placeholder="Ссылка на картинку" required />
               <span className="form__error-message input-place-link-error"></span>
             </label>
-          </PopupWithForm>
+          </PopupWithForm> */}
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
           {/* <PopupWithForm
             title="Обновить аватар"
             name="avatar-edit"
