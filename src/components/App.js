@@ -147,11 +147,11 @@ function App() {
       .then((res) => { // res - это массив объектов всех карточек, который вернул сервер после обновления
         // обновите стейт cards с помощью расширенной копии текущего массива
         setCards([res, ...cards]);
+
+        // закроем все попапы
+        closeAllPopups();
       })
       .catch((err) => console.log(err));
-
-    // закроем все попапы
-    closeAllPopups();
   }
 
   return (
